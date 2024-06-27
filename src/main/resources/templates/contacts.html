@@ -69,9 +69,9 @@
 							</address>
 						</div>
 					</div>
-					<div class="grid_6 prefix_1" th:action="@{contactForm}" method = "post">
+					<div class="grid_6 prefix_1" >
 						<h3>Contact Form</h3>
-						<form id="form">
+						<form id="form" th:action="@{contactForm}" th:object="${contactForm}" method = "post">
 							<div class="success_wrapper">
 								<div class="success-message">Contact form submitted</div>
 							</div>
@@ -98,7 +98,7 @@
 							<div>
 								<div class="clear"></div>
 								<div class="btns">
-									<a href="#" data-type="submit" class="btn">Send</a>
+									<button class="btn">Send</button>
 									<a href="#" data-type="reset" class="btn">Clear</a>
 								</div>
 							</div>
