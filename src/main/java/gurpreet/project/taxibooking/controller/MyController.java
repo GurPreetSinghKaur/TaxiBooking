@@ -30,18 +30,25 @@ public class MyController {
     public String getServicesPage(HttpServletRequest req, Model model) {
         String requestURI = req.getRequestURI();
         model.addAttribute("currentPage",requestURI);return "services";}
+
     @GetMapping("contacts")
     public String getContactsPage(HttpServletRequest req, Model model) {
         String requestURI = req.getRequestURI();
-        model.addAttribute("currentPage",requestURI);
-        model.addAttribute("contactForm", new ContactForm());
-        return "contacts";}
 
-   @PostMapping("contactForm")
-    public String contactForm(Model model, @Valid @ModelAttribute ContactForm contactForm, BindingResult bindingResult){
-        System.out.println(contactForm);
-   if (bindingResult.hasErrors())     System.out.println(bindingResult);
+        model.addAttribute("currentPage", requestURI);
+        model.addAttribute("contactForm", new ContactForm());
         return "contacts";
+    }
+
+   @PostMapping("contactform")
+    public String contactForm(@Valid @ModelAttribute ContactForm myContactForm, BindingResult bindingResult, Model model){
+        System.out.println(myContactForm);
+   if (bindingResult.hasErrors()) {
+       model.addAttribute("bindingResult",bindingResult);
+//       System.out.println(bindingResult);
+       return "contacts";
+   }
+        return "redirect:/contacts";
 
     }
 
