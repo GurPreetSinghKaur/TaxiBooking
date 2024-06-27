@@ -1,17 +1,27 @@
 package gurpreet.project.taxibooking.controller;
 
 import gurpreet.project.taxibooking.model.ContactForm;
+import gurpreet.project.taxibooking.service.ContactFormService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class MyController {
+
+    private ContactFormService contactFormService;
+    @Autowired
+    public void setContactFormService(ContactFormService contactFormService) {
+        this.contactFormService = contactFormService;
+    }
+
     @GetMapping(path = {"/","index", "home"})
     public String getHomePage(HttpServletRequest req, Model model) {
         String requestURI = req.getRequestURI();
@@ -41,13 +51,22 @@ public class MyController {
     }
 
    @PostMapping("contactform")
-    public String contactForm(@Valid @ModelAttribute ContactForm myContactForm, BindingResult bindingResult, Model model){
-        System.out.println(myContactForm);
+    public String contactForm(@Valid @ModelAttribute ContactForm contactForm, BindingResult bindingResult,
+                              Model model, RedirectAttributes redirectAttributes){
+        System.out.println(contactForm);
    if (bindingResult.hasErrors()) {
        model.addAttribute("bindingResult",bindingResult);
 //       System.out.println(bindingResult);
        return "contacts";
    }
+
+  ContactForm saveContactFormService = contactFormService.saveContactFormService(contactForm);
+    if (saveContactFormService != null) {
+        redirectAttributes.addFlashAttribute("message", "Message saved successfully");
+    } else {
+        redirectAttributes.addFlashAttribute("message", "Error sending message ");
+    }
+
         return "redirect:/contacts";
 
     }
