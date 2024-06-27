@@ -31,7 +31,7 @@ public class MyController {
         return "index";}
 
 
-
+@PostMapping("bookingform")
   public String bookingForm(@Valid @ModelAttribute BookingForm bookingForm, BindingResult bindingResult,
                               Model model, RedirectAttributes redirectAttributes){
         System.out.println(bookingForm);
