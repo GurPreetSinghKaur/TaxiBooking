@@ -62,7 +62,7 @@
 				<div class="container_12">
 					<div class="grid_5">
 						<h3>Booking Form</h3>
-						<form id="bookingForm">
+						<form id="bookingForm" method="post" th:action="@{bookingform}" th:object="${bookingForm}" >
 							<div class="fl1">
 								<div class="tmInput">
 									<input name="name" placeHolder="Name:" type="text" data-constraints='@NotEmpty @Required @AlphaSpecial'>

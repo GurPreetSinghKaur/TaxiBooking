@@ -1,5 +1,6 @@
 package gurpreet.project.taxibooking.controller;
 
+import gurpreet.project.taxibooking.model.BookingForm;
 import gurpreet.project.taxibooking.model.ContactForm;
 import gurpreet.project.taxibooking.service.ContactFormService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,7 +27,29 @@ public class MyController {
     public String getHomePage(HttpServletRequest req, Model model) {
         String requestURI = req.getRequestURI();
         model.addAttribute("currentPage",requestURI);
+        model.addAttribute("bookingForm", new BookingForm());
         return "index";}
+
+
+
+  public String bookingForm(@Valid @ModelAttribute BookingForm bookingForm, BindingResult bindingResult,
+                              Model model, RedirectAttributes redirectAttributes){
+        System.out.println(bookingForm);
+   if (bindingResult.hasErrors()) {
+       model.addAttribute("bindingResult",bindingResult);
+//       System.out.println(bindingResult);
+       return "index";
+   }
+
+        return "redirect:/index";
+    }
+
+
+
+
+
+
+
     @GetMapping("about")
     public String getAboutPage(HttpServletRequest req, Model model) {
         String requestURI = req.getRequestURI();
