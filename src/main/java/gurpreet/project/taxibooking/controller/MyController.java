@@ -39,6 +39,9 @@ public class MyController {
        model.addAttribute("bindingResult",bindingResult);
 //       System.out.println(bindingResult);
        return "index";
+   } else if (bookingForm.getAdult() + bookingForm.getChild() > 8) {
+       model.addAttribute("message","Adults and children cannot be greater than 8 altogether");
+       return "index";
    }
 
         return "redirect:/index";

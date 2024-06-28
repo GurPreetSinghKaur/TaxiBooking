@@ -21,7 +21,7 @@ public class BookingForm {
     @NotEmpty(message = "Name cannot be empty")
     @NotBlank(message = "Name cannot be blank")
     @Size(min=2, max = 30, message = "Invalid name length")
-    @Pattern(regexp = "[^0-1]", message = "Name should only contain alphabets")
+    @Pattern(regexp = ".*[^0-9].*", message = "Name should only contain alphabets")
     private String name;
 
     @NotBlank(message = "Email cannot be blank")
